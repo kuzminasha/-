@@ -17,7 +17,9 @@
 #include "MyListView.h"
 
 #include <propkey.h>
-
+#include "CFind.h"
+#include "CDelete.h"
+#include "CAdd.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -163,21 +165,114 @@ void CdataBaseDoc::Dump(CDumpContext& dc) const
 void CdataBaseDoc::show_client()
 {
 	CMyListView* m_list = (CMyListView*)m_pView;
-	/*m_list->Delete_d();*/
-	string sql = "select client_id, clientname from clientele;";
-	CString str1, str2;
+	m_list->Delete_d();
+	string sql = "select * from clientele;";
+	CString str1, str2, str3, str4;
 	mysql_query(conn, sql.c_str());
 	if (reslogon = mysql_store_result(conn))
 	{
 		int i = -1;
 		while (row = mysql_fetch_row(reslogon))
 		{
-			m_list->Fill_Client(str1, str2, i);
+			m_list->Fill_Client(str1, str2, str3, str4, i);
 			str1 = row[0];
 			str2 = row[1];
+			str3 = row[2];
+			str4 = row[3];
 			i++;
 		}
-		m_list->Fill_Client(str1, str2, i);
+		m_list->Fill_Client(str1, str2, str3, str4, i);
 	}
 	mysql_free_result(reslogon);
+}
+void CdataBaseDoc::Find()
+{
+
+	CFind dlg;
+	if (dlg.DoModal() != IDOK)
+		return;
+
+	FIO = dlg.FIO;
+	CT2CA pszConvertedAnsiString(FIO);
+	string fio(pszConvertedAnsiString);
+
+	CMyListView* m_list = (CMyListView*)m_pView;
+	m_list->Delete_d();     
+	string sql = "SELECT * FROM clientele WHERE clientname like '" + fio +"%' ;";
+	CString str1, str2, str3, str4;
+	mysql_query(conn, sql.c_str());
+	if (reslogon = mysql_store_result(conn))
+	{
+		int i = -1;
+		while (row = mysql_fetch_row(reslogon))
+		{
+			m_list->Fill_Client(str1, str2, str3, str4, i);
+			str1 = row[0];
+			str2 = row[1];
+			str3 = row[2];
+			str4 = row[3];
+			i++;
+		}
+		m_list->Fill_Client(str1, str2, str3, str4, i);
+	}
+	mysql_free_result(reslogon);
+}
+void CdataBaseDoc::Delete()
+{
+	CDelete dlg;
+	if (dlg.DoModal() != IDOK)
+		return;
+
+	FIO = dlg.FIO;
+	CT2CA pszConvertedAnsiString(FIO);
+	string fio(pszConvertedAnsiString);
+
+	CMyListView* m_list = (CMyListView*)m_pView;
+	m_list->Delete_d(); 
+	string sql = "DELETE FROM clientele WHERE clientname like '" + fio + "%' ;";
+
+	mysql_query(conn, sql.c_str());
+	int result = mysql_query(conn, sql.c_str());
+	if (!result)
+	{
+		AfxMessageBox(L"Удаление успешно!");
+	}
+	else
+	{
+		AfxMessageBox(L"Возникли проблемы, попробуйте еще раз");
+	}
+
+}
+void CdataBaseDoc::Add()
+{
+	CAdd dlg;
+	if (dlg.DoModal() != IDOK)
+		return;
+
+	FIO = dlg.FIO;
+	insurance = dlg.insurance;
+	insurance_date = dlg.year + '-' + dlg.month + '-' + dlg.day;
+
+
+
+	CT2CA pszConvertedAnsiString(FIO);
+	string FIO1(pszConvertedAnsiString);
+
+	CT2CA pszConvertedAnsiString1(insurance);
+	string insurance1(pszConvertedAnsiString1);
+
+	CT2CA pszConvertedAnsiString2(insurance_date);
+	string insurance_date1(pszConvertedAnsiString2);
+
+
+	string sql = "INSERT INTO clientele VALUES(NULL, '"+FIO1+"', '"+insurance1+"', '"+insurance_date1+"');";
+	int result = mysql_query(conn, sql.c_str());
+	if (!result)
+	{
+		AfxMessageBox(L"Клиент успешно добавлен!");
+	}
+	else
+	{
+		AfxMessageBox(L"Возникли проблемы, попробуйте еще раз!");
+	}
 }

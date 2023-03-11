@@ -70,22 +70,19 @@ void CMyTreeView::OnLButtonDblClk(UINT nFlags, CPoint point)
 	{
 		m_pDoc->show_client();
 	}
-	/*else if (tree.GetSelectedItem() == m_hf2)
+	else if (tree.GetSelectedItem() == m_hAdd)
 	{
 		m_pDoc->Add();
 	}
-	else if (tree.GetSelectedItem() == m_hf3)
+	else if (tree.GetSelectedItem() == m_hDelete)
 	{
 		m_pDoc->Delete();
 	}
-	else if (tree.GetSelectedItem() == m_hf4)
-	{
-		m_pDoc->show_client();
-	}
-	else if (tree.GetSelectedItem() == m_hf5)
+	
+	else if (tree.GetSelectedItem() == m_hFind)
 	{
 		m_pDoc->Find();
-	}*/
+	}
 
 	CTreeView::OnLButtonDblClk(nFlags, point);
 }

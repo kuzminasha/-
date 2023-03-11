@@ -189,6 +189,9 @@
     </ResourceCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="CAdd.h" />
+    <ClInclude Include="CDelete.h" />
+    <ClInclude Include="CFind.h" />
     <ClInclude Include="dataBase.h" />
     <ClInclude Include="dataBaseDoc.h" />
     <ClInclude Include="dataBaseView.h" />
@@ -201,6 +204,9 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CAdd.cpp" />
+    <ClCompile Include="CDelete.cpp" />
+    <ClCompile Include="CFind.cpp" />
     <ClCompile Include="dataBase.cpp" />
     <ClCompile Include="dataBaseDoc.cpp" />
     <ClCompile Include="dataBaseView.cpp" />

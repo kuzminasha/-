@@ -13,7 +13,8 @@ protected:
 	virtual ~CMyListView();
 
 public:
-	void Fill_Client(CString id, CString FIO, int i);
+	void Fill_Client(CString id, CString FIO, CString insurance, CString insurance_date, int i);
+
 
 	CdataBaseDoc* m_pDoc;
 	string sql;
@@ -30,6 +31,7 @@ protected:
 	DECLARE_MESSAGE_MAP()
 public:
 	afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
+	void Delete_d();
 };
 
 

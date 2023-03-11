@@ -28,8 +28,10 @@ public:
 	MYSQL_RES* reslogon;
 	MYSQL_ROW row;
 
-	CString id, FIO;
-	
+	CString id, FIO, insurance, insurance_date;
+	void Find();
+	void Delete();
+	void Add();
 
 // Операции
 public:

@@ -1,19 +1,19 @@
 ﻿#pragma once
 #include "dataBaseDoc.h"
 
-// Диалоговое окно CFind
+// Диалоговое окно CDelete
 
-class CFind : public CDialog
+class CDelete : public CDialog
 {
-	DECLARE_DYNAMIC(CFind)
+	DECLARE_DYNAMIC(CDelete)
 
 public:
-	CFind(CWnd* pParent = nullptr);   // стандартный конструктор
-	virtual ~CFind();
+	CDelete(CWnd* pParent = nullptr);   // стандартный конструктор
+	virtual ~CDelete();
 
 // Данные диалогового окна
 #ifdef AFX_DESIGN_TIME
-	enum { IDD = IDD_FIND };
+	enum { IDD = IDD_DELETE };
 #endif
 
 protected:
@@ -23,5 +23,4 @@ protected:
 public:
 	CString FIO;
 	CdataBaseDoc* m_pDoc;
-	afx_msg void OnBnClickedOk();
 };
